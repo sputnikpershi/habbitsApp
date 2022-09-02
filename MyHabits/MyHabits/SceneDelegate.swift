@@ -18,7 +18,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
-        self.window?.rootViewController  = ViewController()
+
+        let navigationController =   UINavigationController(rootViewController: HabitsViewController())
+        
+        let infoVController = InfoViewController()
+        let  tabBarController =  UITabBarController()
+        tabBarController.viewControllers = [navigationController, infoVController]
+        tabBarController.viewControllers?.enumerated().forEach({
+            $1.tabBarItem.title = $0 == 0 ? "Привычки" : "Информация"
+            $1.tabBarItem.image = $0 == 0 ? UIImage(systemName: "rectangle.grid.1x2.fill" ) : UIImage(systemName: "info.circle.fill")
+
+        })
+        tabBarController.tabBar.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 0.8)
+       
+        self.window?.rootViewController  = tabBarController
         self.window?.makeKeyAndVisible()
     }
 

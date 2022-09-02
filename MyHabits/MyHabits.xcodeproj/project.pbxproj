@@ -14,6 +14,8 @@
 		4FC4E66A28C06711003DACAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FC4E66928C06711003DACAF /* Assets.xcassets */; };
 		4FC4E66D28C06711003DACAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FC4E66B28C06711003DACAF /* LaunchScreen.storyboard */; };
 		4FC4E67728C06A2F003DACAF /* HabitsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4E67628C06A2F003DACAF /* HabitsStore.swift */; };
+		4FC4E67928C08644003DACAF /* HabitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4E67828C08644003DACAF /* HabitsViewController.swift */; };
+		4FC4E67B28C08658003DACAF /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4E67A28C08658003DACAF /* InfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		4FC4E66C28C06711003DACAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4FC4E66E28C06711003DACAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FC4E67628C06A2F003DACAF /* HabitsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsStore.swift; sourceTree = "<group>"; };
+		4FC4E67828C08644003DACAF /* HabitsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsViewController.swift; sourceTree = "<group>"; };
+		4FC4E67A28C08658003DACAF /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 			children = (
 				4FC4E66028C0670F003DACAF /* AppDelegate.swift */,
 				4FC4E66228C0670F003DACAF /* SceneDelegate.swift */,
+				4FC4E67828C08644003DACAF /* HabitsViewController.swift */,
+				4FC4E67A28C08658003DACAF /* InfoViewController.swift */,
 				4FC4E66428C0670F003DACAF /* ViewController.swift */,
 				4FC4E67628C06A2F003DACAF /* HabitsStore.swift */,
 				4FC4E66628C0670F003DACAF /* Main.storyboard */,
@@ -144,6 +150,8 @@
 				4FC4E67728C06A2F003DACAF /* HabitsStore.swift in Sources */,
 				4FC4E66528C0670F003DACAF /* ViewController.swift in Sources */,
 				4FC4E66128C0670F003DACAF /* AppDelegate.swift in Sources */,
+				4FC4E67928C08644003DACAF /* HabitsViewController.swift in Sources */,
+				4FC4E67B28C08658003DACAF /* InfoViewController.swift in Sources */,
 				4FC4E66328C0670F003DACAF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
