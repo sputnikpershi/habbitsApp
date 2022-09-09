@@ -7,10 +7,17 @@
 
 import UIKit
 
-struct TimeModel {
-    var date : String
+struct addHabbit {
+   var name: String
+   var date: Date
+   var color: UIColor
+    
+    init() {
+        self.name = ""
+        self.date = Date()
+        self.color = .white
+    }
 }
-
 
 
 

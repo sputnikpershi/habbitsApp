@@ -9,10 +9,11 @@ import UIKit
 
 class AddHabbitViewController: UIViewController {
     
-    var pickerTime: String = ""
-    var name : String = ""
-    var date = Date()
-    var color : UIColor = .systemOrange
+//    var name = ""
+//    var date = Date()
+//    var color : UIColor = .white
+    var newHabit = Habit(name: "", date: Date(), color: .white)
+
     
     private lazy var  nameLabel : UILabel = {
         let label = UILabel ()
@@ -23,9 +24,10 @@ class AddHabbitViewController: UIViewController {
     
     private lazy var  nameTextField : UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = .gray
+        textField.placeholder = "Бегать по утрам, спать 8 часов и т.п."
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
+
     } ()
     
    
@@ -54,32 +56,30 @@ class AddHabbitViewController: UIViewController {
     
     private lazy var  timeDescriprionLabel : UILabel = {
         let label = UILabel ()
-        label.text = "Каждый день в \(String(describing: pickerTime))"
+        let date = Date()
+        
+        label.text = "Каждый день в \(formatDateToShortStyle(date:date))"
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     } ()
+    
     
     private lazy var  timeDataPicker : UIDatePicker = {
         let time = UIDatePicker ()
         time.datePickerMode = .time
         time.locale = NSLocale(localeIdentifier: "en_US") as Locale
         time.preferredDatePickerStyle = .wheels
-        date = time.date
         time.translatesAutoresizingMaskIntoConstraints = false
         time.addTarget(self, action: #selector(handler(sender:)), for: UIControl.Event.valueChanged)
         return time
     } ()
     
     @objc func handler(sender:UIDatePicker) {
-        
-        let timeFormatter = DateFormatter()
-        timeFormatter.timeStyle = DateFormatter.Style.short
-        let strDate = timeFormatter.string(from: (timeDataPicker.date))
-        print("=)) \(strDate)")
-        pickerTime = strDate
-        
-    }
+        timeDescriprionLabel.text = "Каждый день в \(formatDateToShortStyle(date: timeDataPicker.date))"
+      }
     
+   
     private lazy var  deleteLabel : UILabel = {
         let label = UILabel ()
         label.text = "Удалить привычку"
@@ -94,7 +94,7 @@ class AddHabbitViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemMint
+        self.view.backgroundColor = .white
         self.title = "Создать"
     }
     
@@ -107,15 +107,20 @@ class AddHabbitViewController: UIViewController {
     
     private func setNavigation () {
 //        self.navigationController?.navigationBar.prefersLargeTitles = false
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveAction))
+        let editbutton = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: nil)
+        self.navigationItem.setRightBarButton(editbutton, animated: true)
+        
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveAction))
     }
 
     @objc func  saveAction () {
-        let newHabit = Habit(name: name, date: date, color: color)
-        let store = HabitsStore.shared
-        store.habits.append(newHabit)
+        
+        newHabit.color = colorPicker.tintColor
+        newHabit.name = nameTextField.text ?? ""
         print(newHabit)
-        navigationController?.dismiss(animated: true, completion: nil)
+        let store = HabitsStore.shared.habits.append(newHabit)
+        self.navigationController?.popToRootViewController(animated: true)
+//        navigationController?.dismiss(animated: true, completion: nil)
     }
     
     
@@ -128,7 +133,6 @@ class AddHabbitViewController: UIViewController {
         self.view.addSubview(timeDescriprionLabel)
         self.view.addSubview(timeDataPicker)
         self.view.addSubview(deleteLabel)
-
     }
     
     
@@ -165,11 +169,7 @@ class AddHabbitViewController: UIViewController {
                    self.deleteLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
                    self.deleteLabel.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -18)
                    
-                   
-
   ]) }
-    
-    
     
     private func setGesture() {
         colorPicker.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapAction)))
@@ -177,7 +177,7 @@ class AddHabbitViewController: UIViewController {
     
     @objc private func handleTapAction() {
         
-        print("🍏, Touch")
+        print("🍏, Touch UIColorPicker")
 //        self.view.backgroundColor = .white
         let colorPicker = UIColorPickerViewController()
         colorPicker.delegate = self
@@ -187,17 +187,15 @@ class AddHabbitViewController: UIViewController {
     }
 
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func formatDateToShortStyle (date: Date) -> String{
+        let timeFormatter = DateFormatter()
+        timeFormatter.timeStyle = DateFormatter.Style.short
+        return timeFormatter.string(from: (date))
     }
-    */
-
 }
+
+
+// MARK: EXTENSION
 
 extension AddHabbitViewController : UIColorPickerViewControllerDelegate {
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
@@ -206,8 +204,9 @@ extension AddHabbitViewController : UIColorPickerViewControllerDelegate {
 
     
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
-        print("🍏, Dissmis")
-        
+        print("🍏, Dissmis UIColorPicker")
     }
-    
 }
+
+
+

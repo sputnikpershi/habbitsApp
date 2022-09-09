@@ -43,7 +43,9 @@ class HabitsViewController: UIViewController {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: self.layoutCollection)
         collection.delegate = self
         collection.dataSource = self
-        collection.backgroundColor = .lightGray
+        collection.contentInset.top = 22
+        collection.backgroundColor = UIColor(red: 0.949, green: 0.949, blue: 0.969, alpha: 1)
+
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.register(HabitCollectionViewCell.self, forCellWithReuseIdentifier: "Custom Cell")
         collection.register(ProgressCollectionViewCell.self, forCellWithReuseIdentifier: "Progress Cell")
@@ -54,7 +56,7 @@ class HabitsViewController: UIViewController {
     override func viewDidLoad() {
         array()
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UIColor(red: 0.976, green: 0.976, blue: 0.976, alpha: 1)
         setViews()
         setConstraints()
         setNavigation()
@@ -77,7 +79,7 @@ class HabitsViewController: UIViewController {
     
     // MARK:  NAVIGATION
     private func setNavigation() {
-        
+//        self.navigationController?.setToolbarHidden(false, animated: true)
         self.navigationItem.title = "Сегодня"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addHabbit))
@@ -93,10 +95,9 @@ class HabitsViewController: UIViewController {
     @objc  func   addHabbit() {
         
         let vc = AddHabbitViewController ()
-        vc.modalPresentationStyle = .popover
+        vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .coverVertical
-    self.navigationController?.pushViewController(vc, animated: true)
-
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }

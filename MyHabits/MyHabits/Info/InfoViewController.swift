@@ -20,15 +20,16 @@ class InfoViewController: UIViewController {
     
     private lazy var stackView : UIStackView = {
         let stack = UIStackView()
+        stack.backgroundColor = .white
         stack.axis = .vertical
-        stack.backgroundColor = .systemPink
+//        stack.backgroundColor = .systemPink
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
     
     private lazy var headerLabel  : UILabel = {
         let label = UILabel()
-        label.backgroundColor = .gray
+//        label.backgroundColor = .gray
         label.numberOfLines = 0
         label.text = "Этапы вырабатывания привычки привычки привычки"
         label.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight(600))
@@ -39,7 +40,7 @@ class InfoViewController: UIViewController {
     private lazy var infoTextView : UILabel = {
         let info = UILabel()
         info.translatesAutoresizingMaskIntoConstraints = false
-        info.backgroundColor = .gray
+//        info.backgroundColor = .gray
         info.numberOfLines = 0
         info.text  = """
 
@@ -76,7 +77,7 @@ class InfoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UIColor(red: 0.976, green: 0.976, blue: 0.976, alpha: 1)
         setViews()
         setConstraints()
         setNavigation()
