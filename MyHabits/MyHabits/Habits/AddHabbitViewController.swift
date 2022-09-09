@@ -106,11 +106,11 @@ class AddHabbitViewController: UIViewController {
     }
     
     private func setNavigation () {
-//        self.navigationController?.navigationBar.prefersLargeTitles = false
-        let editbutton = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: nil)
-        self.navigationItem.setRightBarButton(editbutton, animated: true)
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+//        let editbutton = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveAction))
+//        self.navigationItem.setRightBarButton(editbutton, animated: true)
         
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveAction))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveAction))
     }
 
     @objc func  saveAction () {
@@ -119,8 +119,8 @@ class AddHabbitViewController: UIViewController {
         newHabit.name = nameTextField.text ?? ""
         print(newHabit)
         let store = HabitsStore.shared.habits.append(newHabit)
-        self.navigationController?.popToRootViewController(animated: true)
-//        navigationController?.dismiss(animated: true, completion: nil)
+//        self.navigationController?.popToRootViewController(animated: true)
+        navigationController?.dismiss(animated: true, completion: nil)
     }
     
     
