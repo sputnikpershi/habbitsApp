@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  MyHabits
 //
-//  Created by Krime Loma    on 9/1/22.
+// 
 //
 
 import UIKit
@@ -29,6 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         })
         self.window?.rootViewController  = tabBarController
         self.window?.makeKeyAndVisible()
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

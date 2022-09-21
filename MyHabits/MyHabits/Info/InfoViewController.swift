@@ -2,18 +2,15 @@
 //  InfoViewController.swift
 //  MyHabits
 //
-//  Created by Krime Loma    on 9/1/22.
+//  
 //
 
 import UIKit
 
 class InfoViewController: UIViewController {
     
-    
-    
     private lazy var scrolView : UIScrollView = {
         let scroll = UIScrollView()
-        
         scroll.translatesAutoresizingMaskIntoConstraints = false
         return scroll
     }()
@@ -22,14 +19,12 @@ class InfoViewController: UIViewController {
         let stack = UIStackView()
         stack.backgroundColor = .white
         stack.axis = .vertical
-//        stack.backgroundColor = .systemPink
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
     
     private lazy var headerLabel  : UILabel = {
         let label = UILabel()
-//        label.backgroundColor = .gray
         label.numberOfLines = 0
         label.text = "Этапы вырабатывания привычки привычки привычки"
         label.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight(600))
@@ -40,7 +35,6 @@ class InfoViewController: UIViewController {
     private lazy var infoTextView : UILabel = {
         let info = UILabel()
         info.translatesAutoresizingMaskIntoConstraints = false
-//        info.backgroundColor = .gray
         info.numberOfLines = 0
         info.text  = """
 
@@ -74,7 +68,7 @@ class InfoViewController: UIViewController {
         return info
     }()
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(red: 0.976, green: 0.976, blue: 0.976, alpha: 1)
@@ -82,6 +76,8 @@ class InfoViewController: UIViewController {
         setConstraints()
         setNavigation()
     }
+    
+    
     private func setNavigation () {
         self.navigationItem.title = "Информация"
     }
@@ -97,16 +93,16 @@ class InfoViewController: UIViewController {
         self.view.addSubview(self.headerLabel)
         self.view.addSubview(self.infoTextView)
     }
-
+    
     
     private func setConstraints () {
         NSLayoutConstraint.activate([
-            self.scrolView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.scrolView.topAnchor.constraint(equalTo: self.view.topAnchor),
             self.scrolView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.scrolView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
             self.scrolView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-
-         
+            
+            
             self.stackView.topAnchor.constraint(equalTo: self.scrolView.topAnchor),
             self.stackView.centerXAnchor.constraint(equalTo: self.scrolView.centerXAnchor),
             self.stackView.widthAnchor.constraint(equalTo: self.scrolView.widthAnchor),
@@ -116,17 +112,12 @@ class InfoViewController: UIViewController {
             self.headerLabel.topAnchor.constraint(equalTo: self.stackView.topAnchor, constant:  22),
             self.headerLabel.leadingAnchor.constraint(equalTo: self.stackView.leadingAnchor, constant: 16),
             self.headerLabel.widthAnchor.constraint(equalTo: self.stackView.widthAnchor, constant: -32 ),
-          
-
+            
+            
             self.infoTextView.topAnchor.constraint(equalTo: self.headerLabel.bottomAnchor, constant: 16 ),
             self.infoTextView.centerXAnchor.constraint(equalTo: self.stackView.centerXAnchor),
             self.infoTextView.widthAnchor.constraint(equalTo: self.stackView.widthAnchor, constant: -32),
             self.infoTextView.bottomAnchor.constraint(equalTo: self.stackView.bottomAnchor),
         ])
     }
-    
-  
-    
-    
-
 }

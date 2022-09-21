@@ -2,14 +2,17 @@
 //  DetailsViewController.swift
 //  MyHabits
 //
-//  Created by Krime Loma    on 9/4/22.
+//  
 //
 
 import UIKit
 
-class DetailsViewController: UIViewController {
 
+class DetailsViewController: UIViewController {
+    
+    weak var editVC: AddHabbitViewController?
     var habitTitle: String?
+    var selectedAtIndex: IndexPath?
     
     private lazy var EditTableView: UITableView = {
         let timeTable = UITableView()
@@ -20,31 +23,35 @@ class DetailsViewController: UIViewController {
         return  timeTable
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemPurple
-        self.title = habitTitle
+        self.title =  HabitsStore.shared.habits[selectedAtIndex?.row ?? 0].name
         setViews()
         setConstraints()
         setNavifation()
-        // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor(red: 0.976, green: 0.976, blue: 0.976, alpha: 1)
     }
     
     
     private func setNavifation() {
+        navigationItem.largeTitleDisplayMode = .never
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .plain, target: self, action: #selector(editAction))
-
-        
-        
     }
-                                                                                  
+    
+    
     private func setViews() {
         self.view.addSubview(EditTableView)
     }
     
+    
     @objc func editAction () {
-        
+        let vc = AddHabbitViewController()
+        vc.editIndexPath = selectedAtIndex
+        vc.isEditingItem = true
+        navigationController?.pushViewController(vc, animated: true)
     }
+    
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
@@ -52,41 +59,48 @@ class DetailsViewController: UIViewController {
             self.EditTableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             self.EditTableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             self.EditTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-
+            
         ])
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 
 extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        1
-    }
+    func numberOfSections(in tableView: UITableView) -> Int { 1 }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        
+        let habit = HabitsStore.shared.habits[selectedAtIndex?.row ?? 0]
+        if habit.trackDates.count != 0 {
+            return   habit.trackDates.count
+        } else {
+            return 0
+        }
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.backgroundColor = .gray
+        let habit = HabitsStore.shared.habits[selectedAtIndex?.row ?? 0]
+        
+        if HabitsStore.shared.habit(habit, isTrackedIn: habit.date) {
+            cell.textLabel?.text =  HabitsStore.shared.trackDateString(forIndex: indexPath.row)
+            cell.accessoryType = .checkmark
+        } else {
+            cell.textLabel?.text =  HabitsStore.shared.trackDateString(forIndex: indexPath.row)
+        }
+        
         return cell
     }
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        "AКТИВНОСТЬ"
-    }
     
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { "AКТИВНОСТЬ" }
 }
+
+
+
+
+
+
