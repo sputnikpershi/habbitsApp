@@ -142,10 +142,14 @@ class HabitCollectionViewCell: UICollectionViewCell {
     @objc private func handleTap () {
         guard let index = selectedAtIndex else {return}
         let habit = HabitsStore.shared.habits[index.row]
+        
+        
+        
         HabitsStore.shared.track(habit)
+        print(habit.trackDates.count, "+1")
         cellDelegate?.updateProgress()
         enableCheckMarkImage.isHidden = false
-        print("\(HabitsStore.shared.habits[index.row].name)  -   была затрекана")
+        print("\(HabitsStore.shared.habits[index.row].name)  привычка -   затрекана")
     }
 }
 

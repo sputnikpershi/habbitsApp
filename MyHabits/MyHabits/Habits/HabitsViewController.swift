@@ -10,7 +10,6 @@ import UIKit
 class HabitsViewController: UIViewController {
     
     var cellTitle : HabitCollectionViewCell?
-    let store = HabitsStore.shared.habits
     
     private lazy var layoutCollection : UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -147,7 +146,7 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
         if indexPath.section == 1 {
             let vc = DetailsViewController()
             vc.selectedAtIndex = indexPath
-            print(" Выбранна ячейка - \(HabitsStore.shared.habits[indexPath.row].name) с индексом \(indexPath)")
+            print(" Выбрана ячейка - \(HabitsStore.shared.habits[indexPath.row].name) с индексом \(indexPath)")
             self.navigationController?.pushViewController( vc , animated: true)
         }
         

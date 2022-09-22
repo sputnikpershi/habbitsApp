@@ -10,14 +10,12 @@ import UIKit
 
 class DetailsViewController: UIViewController {
     
-    weak var editVC: AddHabbitViewController?
     var habitTitle: String?
     var selectedAtIndex: IndexPath?
     
     private lazy var EditTableView: UITableView = {
         let timeTable = UITableView()
         timeTable.backgroundColor = UIColor(red: 0.949, green: 0.949, blue: 0.969, alpha: 1)
-
         timeTable.delegate = self
         timeTable.dataSource = self
         timeTable.register(UITableViewCell.self, forCellReuseIdentifier: "Custom cell")
@@ -73,29 +71,33 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        let habit = HabitsStore.shared.habits[selectedAtIndex?.row ?? 0]
-        if habit.trackDates.count != 0 {
-            return     habit.trackDates.count    } else {
-            return 0
-        }
+        return HabitsStore.shared.dates.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        let habit = HabitsStore.shared.habits[selectedAtIndex?.row ?? 0]
-        
-        if HabitsStore.shared.habit(habit, isTrackedIn: habit.date) {
-            cell.textLabel?.text =  HabitsStore.shared.trackDateString(forIndex: indexPath.row)
-            cell.accessoryType = .checkmark
-        } else {
-            cell.textLabel?.text =  HabitsStore.shared.trackDateString(forIndex: indexPath.row)
-        }
-        
-        return cell
+        return configCell(cell: cell, with: indexPath)
     }
     
+    func configCell (cell: UITableViewCell, with indexPath: IndexPath) -> UITableViewCell {
+        let habit = HabitsStore.shared.habits[selectedAtIndex?.row ?? 0]
+        cell.textLabel?.text =  HabitsStore.shared.trackDateString(forIndex: indexPath.row)
+        print(habit.trackDates.count)
+        
+        for i in habit.trackDates {
+            print(i)
+            if HabitsStore.shared.habit(habit, isTrackedIn: i) {
+                print(HabitsStore.shared.habit(habit, isTrackedIn: i))
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+            return cell
+        }
+        return cell
+    }
+
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { "AКТИВНОСТЬ" }
 }
