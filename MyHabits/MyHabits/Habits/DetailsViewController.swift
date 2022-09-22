@@ -16,6 +16,8 @@ class DetailsViewController: UIViewController {
     
     private lazy var EditTableView: UITableView = {
         let timeTable = UITableView()
+        timeTable.backgroundColor = UIColor(red: 0.949, green: 0.949, blue: 0.969, alpha: 1)
+
         timeTable.delegate = self
         timeTable.dataSource = self
         timeTable.register(UITableViewCell.self, forCellReuseIdentifier: "Custom cell")
@@ -74,8 +76,7 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
         
         let habit = HabitsStore.shared.habits[selectedAtIndex?.row ?? 0]
         if habit.trackDates.count != 0 {
-            return   habit.trackDates.count
-        } else {
+            return     habit.trackDates.count    } else {
             return 0
         }
     }
