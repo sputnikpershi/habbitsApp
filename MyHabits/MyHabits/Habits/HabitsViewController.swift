@@ -10,7 +10,6 @@ import UIKit
 class HabitsViewController: UIViewController {
     
     var cellTitle : HabitCollectionViewCell?
-    
     private lazy var layoutCollection : UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -37,11 +36,13 @@ class HabitsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(red: 0.976, green: 0.976, blue: 0.976, alpha: 1)
+        
+        
         setViews()
         setConstraints()
         setNavigation()
         configTabBar()
-        print("STORE has \(HabitsStore.shared.habits.count) item")
+        print("Таблица хранит \(HabitsStore.shared.habits.count) ячеек")
     }
     
     
@@ -145,8 +146,10 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             let vc = DetailsViewController()
+            vc.habitVC = self 
             vc.selectedAtIndex = indexPath
             print(" Выбрана ячейка - \(HabitsStore.shared.habits[indexPath.row].name) с индексом \(indexPath)")
+            print ("Ячейка затрекана \(HabitsStore.shared.habits[indexPath.row].trackDates.count) раз")
             self.navigationController?.pushViewController( vc , animated: true)
         }
         
@@ -166,7 +169,7 @@ extension HabitsViewController:  AddHabbitViewControllerDelegate {
     func editItem(with indexPath: IndexPath) {  // Relaod data after editing item
         self.habitCollectionView.performBatchUpdates {
             print("☘️: edit)")
-            habitCollectionView.reloadData()
+            habitCollectionView.reloadItems(at: [indexPath])
         }
     }
     

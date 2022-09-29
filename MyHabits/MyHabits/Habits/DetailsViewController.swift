@@ -12,11 +12,16 @@ class DetailsViewController: UIViewController {
     
     var habitTitle: String?
     var selectedAtIndex: IndexPath?
+    var habitVC: AddHabbitViewControllerDelegate?
     
     private lazy var EditTableView: UITableView = {
         let timeTable = UITableView()
         timeTable.backgroundColor = UIColor(red: 0.949, green: 0.949, blue: 0.969, alpha: 1)
         timeTable.delegate = self
+//        timeTable.transform = CGAffineTransform(scaleX: 1, y: -1)
+//        timeTable.transform = CGAffineTransform(rotationAngle: (-.pi))
+
+
         timeTable.dataSource = self
         timeTable.register(UITableViewCell.self, forCellReuseIdentifier: "Custom cell")
         timeTable.translatesAutoresizingMaskIntoConstraints = false
@@ -47,6 +52,7 @@ class DetailsViewController: UIViewController {
     
     @objc func editAction () {
         let vc = AddHabbitViewController()
+        vc.habitVC = habitVC
         vc.editIndexPath = selectedAtIndex
         vc.isEditingItem = true
         navigationController?.pushViewController(vc, animated: true)
@@ -71,29 +77,34 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       
         return HabitsStore.shared.dates.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
+        print("--")
         return configCell(cell: cell, with: indexPath)
     }
     
     func configCell (cell: UITableViewCell, with indexPath: IndexPath) -> UITableViewCell {
         let habit = HabitsStore.shared.habits[selectedAtIndex?.row ?? 0]
         cell.textLabel?.text =  HabitsStore.shared.trackDateString(forIndex: indexPath.row)
-        print(habit.trackDates.count)
-        
-        for i in habit.trackDates {
-            print(i)
-            if HabitsStore.shared.habit(habit, isTrackedIn: i) {
-                print(HabitsStore.shared.habit(habit, isTrackedIn: i))
-                cell.accessoryType = .checkmark
-            } else {
-                cell.accessoryType = .none
+        var indexes: [Int] = []
+
+        for i in 0..<HabitsStore.shared.dates.count {
+            
+            if  HabitsStore.shared.habit(habit, isTrackedIn: HabitsStore.shared.dates[i]){
+                print (true)
+                indexes.append(i)
             }
-            return cell
+        }
+        
+        for i in indexes {
+            if indexPath.row == i {
+                cell.accessoryType = .checkmark
+            }
         }
         return cell
     }
@@ -102,8 +113,6 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { "AКТИВНОСТЬ" }
 }
 
-
-
-
-
+    
+    
 
