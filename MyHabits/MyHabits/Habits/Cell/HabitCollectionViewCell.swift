@@ -89,7 +89,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
             self.nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             self.nameLabel.widthAnchor.constraint(equalToConstant: self.frame.width - 155),
             
-            
             self.timeLabel.leadingAnchor.constraint(equalTo: self.nameLabel.leadingAnchor),
             self.timeLabel.topAnchor.constraint(equalTo: self.nameLabel.bottomAnchor ,constant: 4),
             
@@ -118,7 +117,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
             timeLabel.text = habitsArray[index.row].dateString
             disableCheckMarkImage.tintColor = habitsArray[index.row].color
             counterLabel.text =  "Счетчик: \(HabitsStore.shared.habits[index.row].trackDates.count)"
-
+            
             if habitsArray[index.row].isAlreadyTakenToday {
                 enableCheckMarkImage.tintColor = habitsArray[index.row ].color
                 enableCheckMarkImage.isHidden = false
@@ -142,16 +141,14 @@ class HabitCollectionViewCell: UICollectionViewCell {
     @objc private func handleTap () {
         guard let index = selectedAtIndex else {return}
         let habit = HabitsStore.shared.habits[index.row]
-        
-            
-            HabitsStore.shared.track(habit)
-            print(habit.trackDates.count, "+1")
-            cellDelegate?.updateProgress()
-            enableCheckMarkImage.isHidden = false
+        HabitsStore.shared.track(habit)
+        print(habit.trackDates.count, "+1")
+        cellDelegate?.updateProgress()
+        enableCheckMarkImage.isHidden = false
         enableCheckMarkImage.isUserInteractionEnabled = false
         disableCheckMarkImage.isUserInteractionEnabled = false //   проверить работу
-
-            print("\(HabitsStore.shared.habits[index.row].name)  привычка -   затрекана")
+        counterLabel.text =  "Счетчик: \(habit.trackDates.count)"
+        print("\(HabitsStore.shared.habits[index.row].name)  привычка -   затрекана")
         
     }
 }

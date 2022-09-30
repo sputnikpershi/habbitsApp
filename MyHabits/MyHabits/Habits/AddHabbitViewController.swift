@@ -224,7 +224,7 @@ class AddHabbitViewController: UIViewController {
     
     
     @objc func  saveAction () {
-    
+        
         if isEditingItem {
             let index = editIndexPath ?? [1,0]
             let editItem = HabitsStore.shared.habits[index.row]
@@ -232,11 +232,9 @@ class AddHabbitViewController: UIViewController {
             editItem.date = timeDataPicker.date
             editItem.color = colorPicker.tintColor
             HabitsStore.shared.save()
-//            detailVC?.addVC?.habitVC?.editItem(with: index)
             habitVC?.editItem(with: index)
             self.navigationController?.popToRootViewController(animated: true)
         } else {
-            
             let newHabit = Habit(name: nameTextField.text ?? "", date: timeDataPicker.date, color: colorPicker.tintColor)
             HabitsStore.shared.habits.append(newHabit)
             let index = HabitsStore.shared.habits.endIndex

@@ -18,10 +18,10 @@ class DetailsViewController: UIViewController {
         let timeTable = UITableView()
         timeTable.backgroundColor = UIColor(red: 0.949, green: 0.949, blue: 0.969, alpha: 1)
         timeTable.delegate = self
-//        timeTable.transform = CGAffineTransform(scaleX: 1, y: -1)
-//        timeTable.transform = CGAffineTransform(rotationAngle: (-.pi))
-
-
+        //        timeTable.transform = CGAffineTransform(scaleX: 1, y: -1)
+        //        timeTable.transform = CGAffineTransform(rotationAngle: (-.pi))
+        
+        
         timeTable.dataSource = self
         timeTable.register(UITableViewCell.self, forCellReuseIdentifier: "Custom cell")
         timeTable.translatesAutoresizingMaskIntoConstraints = false
@@ -70,49 +70,49 @@ class DetailsViewController: UIViewController {
     }
 }
 
+// MARK: EXTENSION
 
 extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
+    
     
     func numberOfSections(in tableView: UITableView) -> Int { 1 }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       
         return HabitsStore.shared.dates.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        print("--")
         return configCell(cell: cell, with: indexPath)
     }
     
+    
     func configCell (cell: UITableViewCell, with indexPath: IndexPath) -> UITableViewCell {
         let habit = HabitsStore.shared.habits[selectedAtIndex?.row ?? 0]
-        cell.textLabel?.text =  HabitsStore.shared.trackDateString(forIndex: indexPath.row)
+        let reverseIndex = HabitsStore.shared.dates.count - indexPath.row - 1
+        cell.textLabel?.text =  HabitsStore.shared.trackDateString(forIndex: reverseIndex)
         var indexes: [Int] = []
-
+        
         for i in 0..<HabitsStore.shared.dates.count {
-            
             if  HabitsStore.shared.habit(habit, isTrackedIn: HabitsStore.shared.dates[i]){
-                print (true)
                 indexes.append(i)
             }
         }
         
         for i in indexes {
-            if indexPath.row == i {
+            if reverseIndex == i {
                 cell.accessoryType = .checkmark
             }
         }
         return cell
     }
-
+    
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { "AКТИВНОСТЬ" }
 }
 
-    
-    
+
+
 

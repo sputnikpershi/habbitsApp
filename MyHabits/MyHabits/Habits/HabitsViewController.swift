@@ -156,6 +156,8 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
 }
 
+// MARK: EXTENSION
+
 
 extension HabitsViewController:  AddHabbitViewControllerDelegate {
     func deleteItem(with indexPath: IndexPath) {  // Reload Data after deleting Item
