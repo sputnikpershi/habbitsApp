@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  MyHabits
 //
-//  Created by Krime Loma    on 9/1/22.
+// 
 //
 
 import UIKit
@@ -18,8 +18,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
-        self.window?.rootViewController  = ViewController()
+
+        let habitsVController =   UINavigationController(rootViewController: HabitsViewController())
+        let infoVController = UINavigationController(rootViewController: InfoViewController())
+        let  tabBarController =  UITabBarController()
+        tabBarController.viewControllers = [habitsVController, infoVController]
+        tabBarController.viewControllers?.enumerated().forEach({
+            $1.tabBarItem.title = $0 == 0 ? "Привычки" : "Информация"
+            $1.tabBarItem.image = $0 == 0 ? UIImage(systemName: "rectangle.grid.1x2.fill" ) : UIImage(systemName: "info.circle.fill")
+        })
+        self.window?.rootViewController  = tabBarController
         self.window?.makeKeyAndVisible()
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
